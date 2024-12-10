@@ -25,14 +25,12 @@ public class BridgeGameController {
         BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
 
         int bridgeSize = inputView.readBridgeSize();
-
         List<String> bridge = bridgeMaker.makeBridge(bridgeSize);
-        System.out.println(bridge.toString());
 
         BridgeGame bridgeGame = new BridgeGame(bridge);
 
-        List<String> moveStatus = bridgeGame.move("U");
-        System.out.println(moveStatus.toString());
+        String direction = inputView.readMoving();
+        List<String> moveStatus = bridgeGame.move(direction);
 
     }
 }
