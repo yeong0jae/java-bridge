@@ -15,6 +15,6 @@ public class Application {
 
         BridgeGameController bridgeGameController = new BridgeGameController(inputView, outputView,
                 bridgeRandomNumberGenerator);
-        bridgeGameController.play();
+        bridgeGameController.ready();
     }
 }

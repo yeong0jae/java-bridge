@@ -24,7 +24,14 @@ public class InputView {
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
-    public String readGameCommand() {
-        return null;
+    public boolean readGameCommand() {
+        System.out.println("게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)");
+        if (Console.readLine().equals("R")) {
+            return true;
+        }
+        if (Console.readLine().equals("Q")) {
+            return false;
+        }
+        throw new IllegalArgumentException("재시도 실패: 잘못된 값을 입력하였습니다.");
     }
 }

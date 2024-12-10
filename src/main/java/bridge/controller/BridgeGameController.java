@@ -1,5 +1,6 @@
 package bridge.controller;
 
+import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeNumberGenerator;
@@ -20,17 +21,32 @@ public class BridgeGameController {
         this.bridgeNumberGenerator = bridgeNumberGenerator;
     }
 
-    public void play() {
-
+    public void ready() {
         BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
-
         int bridgeSize = inputView.readBridgeSize();
-        List<String> bridge = bridgeMaker.makeBridge(bridgeSize);
 
+        List<String> squares = bridgeMaker.makeBridge(bridgeSize);
+        Bridge bridge = new Bridge(squares);
+
+        play(bridge);
+    }
+
+    private void play(Bridge bridge) {
         BridgeGame bridgeGame = new BridgeGame(bridge);
 
         String direction = inputView.readMoving();
-        List<String> moveStatus = bridgeGame.move(direction);
+        
+        if (!bridgeGame.move(direction)) {
+            gameContinue(bridge);
+        }
 
     }
+
+    private void gameContinue(Bridge bridge) {
+        if (inputView.readGameCommand()) {
+            play(bridge);
+        }
+    }
+
+
 }
