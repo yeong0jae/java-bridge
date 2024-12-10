@@ -15,13 +15,11 @@ public class BridgeGame {
         this.bridge = bridge;
     }
 
-    public boolean move(String direction) {
+    public void move(String direction) {
         if (isMovable(direction)) {
             moveStatus.add("O");
-            return true;
         }
         moveStatus.add("X");
-        return false;
     }
 
     private boolean isMovable(String direction) {

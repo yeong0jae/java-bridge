@@ -21,32 +21,25 @@ public class BridgeGameController {
         this.bridgeNumberGenerator = bridgeNumberGenerator;
     }
 
-    public void ready() {
+    public void run() {
+        Bridge bridge = ready();
+        play(bridge);
+    }
+
+    public Bridge ready() {
         int bridgeSize = inputView.readBridgeSize();
 
         BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
         List<String> squares = bridgeMaker.makeBridge(bridgeSize);
-        Bridge bridge = new Bridge(squares);
 
-        play(bridge);
+        return new Bridge(squares);
     }
 
     private void play(Bridge bridge) {
         BridgeGame bridgeGame = new BridgeGame(bridge);
-
         String direction = inputView.readMoving();
 
-        if (!bridgeGame.move(direction)) {
-            gameContinue(bridge);
-        }
 
     }
-
-    private void gameContinue(Bridge bridge) {
-        if (inputView.readGameCommand()) {
-            play(bridge);
-        }
-    }
-
 
 }
