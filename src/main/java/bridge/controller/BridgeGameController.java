@@ -22,9 +22,9 @@ public class BridgeGameController {
     }
 
     public void ready() {
-        BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
         int bridgeSize = inputView.readBridgeSize();
 
+        BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
         List<String> squares = bridgeMaker.makeBridge(bridgeSize);
         Bridge bridge = new Bridge(squares);
 
@@ -35,7 +35,7 @@ public class BridgeGameController {
         BridgeGame bridgeGame = new BridgeGame(bridge);
 
         String direction = inputView.readMoving();
-        
+
         if (!bridgeGame.move(direction)) {
             gameContinue(bridge);
         }
