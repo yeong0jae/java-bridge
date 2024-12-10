@@ -22,6 +22,8 @@ public class BridgeGameController {
     }
 
     public void run() {
+        outputView.printStartMessage();
+        
         Bridge bridge = ready();
         play(bridge);
     }
