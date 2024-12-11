@@ -21,4 +21,8 @@ public class Bridge {
     public List<String> getSquares() {
         return squares;
     }
+
+    public int getSize() {
+        return squares.size();
+    }
 }

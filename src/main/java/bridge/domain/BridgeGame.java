@@ -1,38 +1,55 @@
 package bridge.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * 다리 건너기 게임을 관리하는 클래스
- */
 public class BridgeGame {
 
-    private List<String> moveStatus = new ArrayList<>();
+    private final Player player;
     private final Bridge bridge;
+    private static int tryNumber;
+    private boolean isFinish;
 
     public BridgeGame(Bridge bridge) {
+        this.player = new Player(new ArrayList<>());
         this.bridge = bridge;
+        tryNumber = 1;
+        this.isFinish = false;
     }
 
-    public void move(String direction) {
-        if (isMovable(direction)) {
-            moveStatus.add("O");
+    public void move(String moving) {
+        if (isMovable(moving)) {
+            player.addSuccess();
+            if (player.isEnd(bridge.getSize())) {
+                isFinish = true;
+            }
+        } else {
+            player.addFailure();
         }
-        moveStatus.add("X");
     }
 
-    private boolean isMovable(String direction) {
-        int currentPosition = moveStatus.size();
-        String square = bridge.getSquares().get(currentPosition);
-        return direction.equals(square);
+    public int getCurrentPosition() {
+        return player.getMoveStatus().size();
     }
 
-    /**
-     * 사용자가 게임을 다시 시도할 때 사용하는 메서드
-     * <p>
-     * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-     */
     public void retry() {
+        tryNumber++;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public int getTryNumber() {
+        return tryNumber;
+    }
+
+    public boolean isFinish() {
+        return isFinish;
+    }
+
+    private boolean isMovable(String moving) {
+        int currentPosition = player.getMoveStatus().size();
+        String square = bridge.getSquares().get(currentPosition);
+        return moving.equals(square);
     }
 }
